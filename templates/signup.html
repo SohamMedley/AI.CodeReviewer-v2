@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>REGISTER // AI.Code Reviewer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="chenzi-wrapper auth-page">
+        <header class="top-nav">
+            <div class="brand">
+                <a href="{{ url_for('index') }}" style="text-decoration: none; color: inherit;">
+                    <span class="brand-prefix">AI.</span>CodeReviewer
+                </a>
+            </div>
+            <a href="{{ url_for('login') }}" class="nav-btn">LOGIN</a>
+        </header>
+
+        <main class="auth-container">
+            <div class="auth-box">
+                <h2 class="auth-title">CREATE_IDENTITY</h2>
+                
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                  {% if messages %}
+                    {% for category, message in messages %}
+                      <div class="flash {{ category }}">{{ message }}</div>
+                    {% endfor %}
+                  {% endif %}
+                {% endwith %}
+
+                <form method="POST" action="{{ url_for('signup') }}">
+                    <div class="form-group">
+                        <label>// DESIRED_USERNAME</label>
+                        <input type="text" name="username" class="cyber-input" required autocomplete="off">
+                    </div>
+                    <div class="form-group">
+                        <label>// SECURE_PASSWORD</label>
+                        <input type="password" name="password" class="cyber-input" required>
+                    </div>
+                    <button type="submit" class="execute-btn auth-submit">REGISTER</button>
+                </form>
+            </div>
+        </main>
+    </div>
+</body>
+</html>

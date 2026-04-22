@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOHAM // AI.Code Reviewer</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+</head>
+<body>
+
+    <div class="chenzi-wrapper">
+        <header class="top-nav">
+            <div class="brand">
+                <a href="{{ url_for('index') }}" style="text-decoration: none; color: inherit;">
+                    <span class="brand-prefix">AI.</span>CodeReviewer
+                </a>
+                <div class="brand-tag">GROQ LAMA 3.3 POWERED</div>
+            </div>
+            
+            <div class="nav-links">
+                {% if session.get('username') %}
+                    <span class="auth-greeting">SYS.USER: {{ session['username'] }}</span>
+                    <a href="{{ url_for('dashboard') }}" class="nav-btn">DASHBOARD</a>
+                    <a href="{{ url_for('logout') }}" class="nav-btn logout">LOGOUT</a>
+                {% else %}
+                    <a href="{{ url_for('login') }}" class="nav-btn">LOGIN</a>
+                    <a href="{{ url_for('signup') }}" class="nav-btn primary">SIGN UP</a>
+                {% endif %}
+            </div>
+        </header>
+
+        <div class="control-panel panel-centered">
+            <label class="cyber-toggle">
+                <input type="checkbox" id="autoFix" checked>
+                <div class="toggle-track"><div class="toggle-thumb"></div></div>
+                <span class="toggle-label">AUTO-FIX</span>
+            </label>
+
+            <label class="cyber-toggle">
+                <input type="checkbox" id="autoExplain">
+                <div class="toggle-track"><div class="toggle-thumb"></div></div>
+                <span class="toggle-label">EXPLAIN</span>
+            </label>
+        </div>
+
+        <main class="core-interface">
+            <div class="input-module" id="dropZone">
+                <div class="module-header">
+                    <span>// INPUT_STREAM</span>
+                    <label for="fileUpload" class="attach-btn">
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+                        ATTACH FILE
+                    </label>
+                    <input type="file" id="fileUpload" hidden>
+                </div>
+                
+                <div class="textarea-wrapper">
+                    <textarea id="codeInput" spellcheck="false" placeholder="Paste source code or drag/drop file here..."></textarea>
+                    <div class="drop-target-overlay"><span>[ DROP FILE ]</span></div>
+                </div>
+
+                <button id="executeBtn" class="execute-btn">EXECUTE SEQUENCE</button>
+            </div>
+
+            <div id="outputModule" class="output-module hidden">
+                <div class="module-header target-header">
+                    <span id="outputHeaderTitle">// OPTIMIZED_OUTPUT</span>
+                    <button id="copyBtn" class="copy-btn">COPY CODE</button>
+                </div>
+                
+                <div class="code-container">
+                    <pre><code id="codeDisplay" class="language-python"></code></pre>
+                </div>
+
+                <div id="explainModule" class="explain-module hidden">
+                    <div class="explain-header">DIAGNOSTIC LOG</div>
+                    <div id="explainText" class="explain-body"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <div id="toastContainer" class="toast-container"></div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-c.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-cpp.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+</body>
+</html>
