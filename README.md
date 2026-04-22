@@ -80,4 +80,3 @@ This project was engineered as part of the B.E. Computer Science and Engineering
 - **Distributed Computing (DC):** Decoupled 3-tier client-server-database communication.
 
 ---
-*Designed & Engineered by Soham Dharap*
